@@ -4,7 +4,7 @@
 
 This connector runs as an Azure Function and provides a webhook URL for Rubrik Security Cloud (RSC, formerly Polaris) to send alerts to. This provides simple connectivity to Microsoft Teams as it sends alert information as cards into a Teams channel.
 
-![alt text](https://github.com/chrisbeckett/rbk-teams-connector/blob/master/teams-event.png "Teams screenshot")
+![alt text](https://github.com/chrisbeckett/rbk-teams-connector/blob/main/teams-event.png "Teams screenshot")
 
 ## How does it work?
 
