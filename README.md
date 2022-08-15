@@ -36,4 +36,4 @@ Click the "Deploy to Azure" button and fill out the deployment form
 - Run **func azure functionapp publish _functname_** where the functname is your function name from the "**Deploy to Azure**" workflow
 - When this is complete, you will need the HTTP trigger URL (Function overview, "Get Function URL" button)
 
-![Deploy to Azure](https://aka.ms/deploytoazurebutton) (https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fchrisbeckett%2Frbk-teams-connector%2Fmaster%2Fdeployment-template.json)
+[![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fchrisbeckett%2Frbk-teams-connector%2Fmaster%2Fdeployment-template.json)
