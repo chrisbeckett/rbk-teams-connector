@@ -5,19 +5,17 @@ import logging
 import json
 import os
 
+teams_webhook_url = os.environ['TEAMS_WEBHOOK_URL']
+
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info(
         'Rubrik SaaS Microsoft Teams Connector HTTP trigger function processed a request.')
-    logging.info('Code version : 120522-0905 - changed alert to event')
     try:
-        teams_webhook_url = 'https://chrisbeckettuk.webhook.office.com/webhookb2/6b0d9673-7820-47df-91a4-528dd8918a8a@5938e49b-e4d2-41ab-b0a0-6b9e0d6a1571/IncomingWebhook/70105b1be3504b1da50c569f9e651b9b/7029e1ea-4150-4aa6-94aa-759bf9a20c16'
         source_message = req.get_json()
         logging.info(f'Finding alert message content is - {source_message}')
         logging.info(f'Teams Webhook URL set to: {teams_webhook_url}')
         if source_message:
-            #teams_webhook_url = os.getenv('TEAMS_WEBHOOK_URL')
-            teams_webhook_url = 'https://chrisbeckettuk.webhook.office.com/webhookb2/6b0d9673-7820-47df-91a4-528dd8918a8a@5938e49b-e4d2-41ab-b0a0-6b9e0d6a1571/IncomingWebhook/70105b1be3504b1da50c569f9e651b9b/7029e1ea-4150-4aa6-94aa-759bf9a20c16'
             logging.info(f'Teams webhook URL set to {teams_webhook_url}')
             alert_summary = source_message.get('summary')
             alert_severity = source_message.get('severity')
@@ -29,7 +27,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             alert_cluster_id = source_message['custom_details']['clusterId']
             alert_formatted_timestamp = dateutil.parser.parse(alert_timestamp)
             alert_display_timestamp = alert_formatted_timestamp.ctime()
-            review_findings_url = "https://rxlabs.dev-016.my.rubrik-lab.com/events"
+            review_findings_url = teams_webhook_url + "/events"
 
             logging.info(f'Building Teams message card...')
             teams_message = pymsteams.connectorcard(teams_webhook_url)
