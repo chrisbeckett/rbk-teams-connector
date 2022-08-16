@@ -2,10 +2,10 @@ import pymsteams
 import azure.functions as func
 import dateutil.parser
 import logging
-import json
 import os
 
 teams_webhook_url = os.environ['TEAMS_WEBHOOK_URL']
+rsc_tenant_url = os.environ['RSC_TENANT_URL']
 
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
@@ -15,8 +15,9 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
         source_message = req.get_json()
         logging.info(f'Finding alert message content is - {source_message}')
         logging.info(f'Teams Webhook URL set to: {teams_webhook_url}')
+        logging.info(
+            f'Rubrik Security Cloud tenant ID set to: {rsc_tenant_url} ')
         if source_message:
-            logging.info(f'Teams webhook URL set to {teams_webhook_url}')
             alert_summary = source_message.get('summary')
             alert_severity = source_message.get('severity')
             alert_timestamp = source_message.get('timestamp')
@@ -27,7 +28,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             alert_cluster_id = source_message['custom_details']['clusterId']
             alert_formatted_timestamp = dateutil.parser.parse(alert_timestamp)
             alert_display_timestamp = alert_formatted_timestamp.ctime()
-            review_findings_url = teams_webhook_url + "/events"
+            review_findings_url = rsc_tenant_url + "/events"
 
             logging.info(f'Building Teams message card...')
             teams_message = pymsteams.connectorcard(teams_webhook_url)
@@ -39,7 +40,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             teams_message.color("ff7474")
             teams_message_section = pymsteams.cardsection()
             teams_message_section.activityImage(
-                "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/v1481229346/fguokibny8s46diuexkz.png")
+                "https://rgteamshandler8a2f.blob.core.windows.net/images/Rubrik_Logo.png")
             teams_message_section.title("Alert Information")
             teams_message_section.addFact("Summary: ", alert_summary)
             teams_message_section.addFact("Severity: ", alert_severity)
