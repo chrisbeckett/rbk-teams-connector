@@ -10,7 +10,7 @@ This connector runs as an Azure Function and provides a webhook URL for Rubrik S
 
 Create a new webhook in the RSC "Security Settings" page (can be accessed via the gear icon in the top right hand corner) and filter out the required events and severity. For example, to send backup operations events to Teams, you may wish to select the "Backup", "Diagnostic", "Maintenance" and "System" event types with the "Critical" and "Warning" severities.
 
-![alt text](https://github.com/chrisbeckett/rbk-teams-connector/blob/master/teams-connector-arch.png "Architecture overview")
+![alt text](https://github.com/chrisbeckett/rbk-teams-connector/blob/main/teams-connector-arch.png "Architecture overview")
 
 ## What do I need to get started?
 
