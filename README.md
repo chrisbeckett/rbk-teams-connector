@@ -2,7 +2,7 @@
 
 ## What does it do?
 
-This connector runs as an Azure Function and provides a webhook URL for Rubrik Security Cloud (RSC, formerly Polaris) to send alerts to. This provides simple connectivity to Microsoft Teams as it sends alert information as cards into a Teams channel.
+This connector runs as an Azure Function and provides a webhook URL for Rubrik Security Cloud (RSC, formerly Polaris) to send alerts to. This provides simple connectivity to Microsoft Teams as it sends alert information as cards into a Teams channel. The serverless function can be quickly and easily deployed using the '**Deploy to Azure**' button at the bottom of the page.
 
 ## How does it work?
 
