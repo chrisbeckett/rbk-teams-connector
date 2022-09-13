@@ -24,6 +24,8 @@ A simple architecture diagram is shown below. In essence, we send a webhook even
 - A Teams webhook URL (https://docs.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook)
 - Python 3.7/3.8/3.9 (3.10 is not currently supported by Azure Functions)
 - Git
+- Azure Functions command line tools
+- Azure CLI (https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli)
 
 ## Obtaining the code
 
@@ -36,6 +38,7 @@ Click the "Deploy to Azure" button and fill out the deployment form
 - Both the **Azure Function** name and the **Storage Account** name **must be globally unique or deployment will fail (if a new storage account is created)**
 - Once the ARM template deployment is complete, open a command prompt and navigate to the **rbk-teams-connector** folder
 - Install the Azure Functions command line tools (*https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=windows%2Ccsharp%2Cbash*)
+- Run **az login** from a command prompt to establish authentication to Azure
 - Run **func init**
 - Run **func azure functionapp publish _functname_** where the functname is your function name from the "**Deploy to Azure**" workflow
 - When this is complete, you will need the HTTP trigger URL (Function overview, "Get Function URL" button)
