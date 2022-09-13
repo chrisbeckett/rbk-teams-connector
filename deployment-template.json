@@ -41,8 +41,16 @@
         },
         "TeamsWebhookURL": {
             "type": "string",
+            "defaultValue": "https://myorg.webhook.office.com/webhook",
             "metadata": {
-                "description": "Microsoft Teams channel webhook URL."
+                "description": "Microsoft Teams channel webhook URL." 
+            }
+        },
+        "RSC_URL": {
+            "type": "string",
+            "defaultValue": "https://orgname.my.rubrik.com",
+            "metadata": {
+                "description": "Rubrik Security Cloud tenant URL."     
             }
         },
         "location": {
