@@ -123,6 +123,10 @@
                         {
                             "name": "TEAMS_WEBHOOK_URL",
                             "value": "[parameters('TeamsWebhookURL')]"
+                        },
+                        {
+                            "name": "RSC_TENANT_URL",
+                            "value": "[parameters('RSC_URL')]"
                         }
                     ]
                 },
