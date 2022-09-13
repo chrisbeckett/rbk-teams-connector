@@ -23,7 +23,7 @@ A simple architecture diagram is shown below. In essence, we send a webhook even
 - A Teams channel to send alerts to
 - A Teams webhook URL (https://docs.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook)
 - Python 3.7/3.8/3.9 (3.10 is not currently supported by Azure Functions)
-- Git
+- Git (https://git-scm.com/downloads)
 - Azure Functions command line tools
 - Azure CLI (https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli)
 
@@ -39,6 +39,7 @@ Click the "Deploy to Azure" button and fill out the deployment form
 - Once the ARM template deployment is complete, open a command prompt and navigate to the **rbk-teams-connector** folder
 - Install the Azure Functions command line tools (*https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local?tabs=windows%2Ccsharp%2Cbash*)
 - Run **az login** from a command prompt to establish authentication to Azure
+- **Tip** To avoid potential deployment issues, it is recommended to pin the Python version in the Function to the version you have installed locally on your staging machine. To do this, run this command from a command prompt -  **az functionapp config set --name function-name --resource-group resourcegroupname --linux-fx-version "Python|3.9"** (change the function name, resource group and Python version as appropriate)
 - Run **func init**
 - Run **func azure functionapp publish _functname_** where the functname is your function name from the "**Deploy to Azure**" workflow
 - When this is complete, you will need the HTTP trigger URL (Function overview, "Get Function URL" button)
