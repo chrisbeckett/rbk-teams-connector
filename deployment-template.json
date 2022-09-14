@@ -46,7 +46,7 @@
                 "description": "Microsoft Teams channel webhook URL." 
             }
         },
-        "RSC_URL": {
+        "RubrikSecurityCloudURL": {
             "type": "string",
             "defaultValue": "https://orgname.my.rubrik.com",
             "metadata": {
@@ -126,7 +126,7 @@
                         },
                         {
                             "name": "RSC_TENANT_URL",
-                            "value": "[parameters('RSC_URL')]"
+                            "value": "[parameters('RubrikSecurityCloudURL')]"
                         }
                     ]
                 },
