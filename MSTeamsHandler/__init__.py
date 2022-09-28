@@ -2,24 +2,37 @@ import pymsteams
 import azure.functions as func
 import dateutil.parser
 import logging
-import json
 import os
+import requests
 
 teams_webhook_url = os.environ['TEAMS_WEBHOOK_URL']
+rsc_tenant_url = os.environ['RSC_TENANT_URL']
+
+if not teams_webhook_url:
+    logging.error(
+        f'Teams webhook URL is not defined. Add this to the function environment variables')
+
+if not rsc_tenant_url:
+    logging.error(
+        f'RSC tenant URL not defined. Add this to the function environment variables')
+
+# Check the RSC URL is reachable
+rsc_url_status = requests.get(rsc_tenant_url)
+if rsc_url_status.status_code != 200:
+    logging.info(
+        f'RSC tenant URL does not seem to be responding, please check the environment variable')
+
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info(
         'Rubrik SaaS Microsoft Teams Connector HTTP trigger function processed a request.')
-    logging.info('Code version : 090822-1502 - using OS environment variables in function')
     try:
-        #teams_webhook_url = 'https://chrisbeckettuk.webhook.office.com/webhookb2/6b0d9673-7820-47df-91a4-528dd8918a8a@5938e49b-e4d2-41ab-b0a0-6b9e0d6a1571/IncomingWebhook/70105b1be3504b1da50c569f9e651b9b/7029e1ea-4150-4aa6-94aa-759bf9a20c16'
         source_message = req.get_json()
         logging.info(f'Finding alert message content is - {source_message}')
         logging.info(f'Teams Webhook URL set to: {teams_webhook_url}')
+        logging.info(
+            f'Rubrik Security Cloud tenant ID set to: {rsc_tenant_url} ')
         if source_message:
-            #teams_webhook_url = os.getenv('TEAMS_WEBHOOK_URL')
-            #teams_webhook_url = 'https://chrisbeckettuk.webhook.office.com/webhookb2/6b0d9673-7820-47df-91a4-528dd8918a8a@5938e49b-e4d2-41ab-b0a0-6b9e0d6a1571/IncomingWebhook/70105b1be3504b1da50c569f9e651b9b/7029e1ea-4150-4aa6-94aa-759bf9a20c16'
-            logging.info(f'Teams webhook URL set to {teams_webhook_url}')
             alert_summary = source_message.get('summary')
             alert_severity = source_message.get('severity')
             alert_timestamp = source_message.get('timestamp')
@@ -30,7 +43,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             alert_cluster_id = source_message['custom_details']['clusterId']
             alert_formatted_timestamp = dateutil.parser.parse(alert_timestamp)
             alert_display_timestamp = alert_formatted_timestamp.ctime()
-            review_findings_url = "https://rxlabs.dev-016.my.rubrik-lab.com/events"
+            review_findings_url = rsc_tenant_url + "/events"
 
             logging.info(f'Building Teams message card...')
             teams_message = pymsteams.connectorcard(teams_webhook_url)
@@ -42,7 +55,7 @@ def main(req: func.HttpRequest) -> func.HttpResponse:
             teams_message.color("ff7474")
             teams_message_section = pymsteams.cardsection()
             teams_message_section.activityImage(
-                "https://res.cloudinary.com/crunchbase-production/image/upload/c_lpad,h_170,w_170,f_auto,b_white,q_auto:eco,dpr_1/v1481229346/fguokibny8s46diuexkz.png")
+                "https://rgteamshandler8a2f.blob.core.windows.net/images/Rubrik_Logo.png")
             teams_message_section.title("Alert Information")
             teams_message_section.addFact("Summary: ", alert_summary)
             teams_message_section.addFact("Severity: ", alert_severity)
